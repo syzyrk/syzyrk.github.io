@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Metoda płatności Przelew bankowy</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Płatność Przelewem bankowym</h1>
+  <p>Wybierz swój bank:</p>
+  <select id="bank-list">
+    <option value="">Wybierz bank</option>
+    <option value="BOŚ Bank">BOŚ Bank</option>
+    <option value="City Handlowy">City Handlowy</option>
+    <option value="PBS Bank">PBS Bank</option>
+    <option value="Pocztowy24">Pocztowy24</option>
+    <option value="Toyota Bank Pay Way">Toyota Bank Pay Way</option>
+    <option value="Plus Bank">Plus Bank</option>
+    <option value="NestBank">NestBank</option>
+    <option value="BNP Paribas">BNP Paribas</option>
+    <option value="iPKO">iPKO</option>
+    <option value="Inteligo">Inteligo</option>
+    <option value="Ariol Bank">Ariol Bank</option>
+    <option value="Velo Bank">Velo Bank</option>
+    <option value="Pekao SA.">Pekao SA.</option>
+    <option value="Santander">Santander</option>
+    <option value="Millenium">Millenium</option>
+    <option value="ING">ING</option>
+    <option value="Credit Agricole">Credit Agricole</option>
+  </select>
+  <button onclick="confirmPayment()">Potwierdź</button>
+  <div id="loading-section" class="loading-section" style="display: none;">
+    <img src="loading.gif" alt="Loading">
+  </div>
+  <div id="payment-unavailable" class="payment-unavailable" style="display: none;">
+    Niestety, płatność Przelewem bankowym jest obecnie niedostępna. Przepraszamy za niedogodności.
+    <div id="back-button">
+      <a href="index.html">Powrót</a>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
