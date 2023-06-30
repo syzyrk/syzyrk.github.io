@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Metoda płatności BLIK</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Płatność BLIK</h1>
+  <p>Podaj 6-cyfrowy kod BLIK:</p>
+  <input type="text" id="blik-code">
+  <button onclick="confirmPayment()">Potwierdź</button>
+  <div id="loading-section" class="loading-section" style="display: none;">
+    <img src="loading.gif" alt="Loading">
+  </div>
+  <div id="payment-unavailable" class="payment-unavailable" style="display: none;">
+    Niestety, płatność BLIK jest obecnie niedostępna. Przepraszamy za niedogodności.
+    <div id="back-button">
+      <a href="index.html">Powrót</a>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
