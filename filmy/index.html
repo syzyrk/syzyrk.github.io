@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miniatury Filmów</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
 
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video-card {
+            margin: 20px;
+            max-width: 300px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .video-title {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Miniatury Filmów</h1>
+    <div class="video-container">
+        <div class="video-card">
+            <img class="video-thumbnail" src="link_do_miniatury_1.jpg" alt="Miniatura filmu 1">
+            <div class="video-title">Tytuł filmu 1</div>
+        </div>
+
+        <div class="video-card">
+            <img class="video-thumbnail" src="link_do_miniatury_2.jpg" alt="Miniatura filmu 2">
+            <div class="video-title">Tytuł filmu 2</div>
+        </div>
+
+        <div class="video-card">
+            <img class="video-thumbnail" src="link_do_miniatury_3.jpg" alt="Miniatura filmu 3">
+            <div class="video-title">Tytuł filmu 3</div>
+        </div>
+    </div>
+</body>
+</html>
