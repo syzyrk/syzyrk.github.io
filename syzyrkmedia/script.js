@@ -50,7 +50,8 @@ function filmInfo(id){
     })
     var result = [];
     result.push("1", title, url, thumbnail, date);
-    return result
+    echo result;
+    return result;
 
 }
 
