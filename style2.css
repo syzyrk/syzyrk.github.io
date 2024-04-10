@@ -1,9 +1,9 @@
 html {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Trebuchet MS', 'sans-serif';
     font-weight: 400;
 }
-h1{color: green;}
-h2{color: blue;}
+h1{color: green; font-weight: normal;}
+h2{color: blue; font-weight: normal;}
 footer{
     background-color: #00BFFF;
     text-align: right;
@@ -20,7 +20,4 @@ header{
 
 p, .text{
     margin-left: 25px;
-}
-.header {
-
 }
