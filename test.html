@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Przesyłanie i zapisywanie zdjęcia</title>
+<style>
+    #uploadForm {
+        margin: 20px;
+    }
+</style>
+</head>
+<body>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" accept="image/*">
+        <button type="button" onclick="saveImage()">Prześlij zdjęcie</button>
+    </form>
+    <script>
+        function saveImage() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Proszę wybrać plik.');
+                return;
+            }
+
+            const fileName = 'moje_zdjecie.jpg'; // Określona nazwa pliku
+
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+    </script>
+</body>
+</html>
