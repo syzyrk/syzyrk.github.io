@@ -34,7 +34,7 @@ function changeData() {
 
 function filmInfo(id){
     var thumbnail = "https://img.youtube.com/vi/"+id+"/hqdefault.jpg"
-    var url = "https://www.youtube.com/watch?v="+id;
+    var url = "<a href='https://www.youtube.com/watch?v="+id+"'></a>";
     var ytApiKey = "AIzaSyBzMqxtwRGw3XtTtTxunyoBk_riXH1vyhU";
     var date = "";
     var title = "";
