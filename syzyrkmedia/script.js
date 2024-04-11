@@ -28,7 +28,7 @@ function changeData() {
     while (i < filmList.length) {
         var info = filmInfo(filmList[i]);
 
-        var bodyContent = "<a href='"+info[2]+"' alt='Tytuł: "+info[2]+">"+info[3]+"</a>"; 
+        var bodyContent = "<a href='"+info[2]+"' alt='Tytuł: "+info[1]+">"+info[3]+"</a>"; 
         document.getElementById("content").innerHTML += bodyContent;
         
         addRow(info);
