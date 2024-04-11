@@ -31,7 +31,6 @@ function changeData() {
         var bodyContent = "<a href='"+info[2]+"' alt='Tytuł: "+info[1]+">"+info[3]+"</a>"; 
         document.getElementById("content").innerHTML += bodyContent;
         
-        addRow(info);
         i++;
     }
 
