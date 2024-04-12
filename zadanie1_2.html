@@ -6,37 +6,36 @@
 		<meta name="author" content="Krzysiek Zawadzki">
 		<meta name="description" content="Opis strony wyświetlany w wyszukiwarce">
 		<meta name="keywords" content="słowoKluczowe1, słowoKluczowe2">
-		<meta http-equiv="refresh" content="15">
 		<title>Tytuł strony</title>
 		<link rel="icon" type="image/x-icon" href="favicon.ico">
 		<link rel="stylesheet" href="style2.css">
-		<script src="script.js"></script>
 	</head>
 	<body>
         <header>zasady poprawnego
             formatowania tekstu</header>
+        <div class="main">
 		<h1>Podstawowe znaki przestankowe</h1>
         <p>kropka ("."), przecinek (","), wykrzyknik ("!"), pytajnik ("?"), dwukropek (":"),
         średnik (";"), wielokropek ("...").</p>
         <p style="font-weight: bold; text-decoration: underline;">Przed tymi znakami nigdy nie stawiamy spacji!<br>
         Spację stawiamy natomiast po nich.</p>
         <h2>wyjątki:</h2>
-        <ol>
-            <li>Bezpośrednio po sobie następuje kilka takich znaków - wtedy spację stawiamy tylko po ostatnim z nich.</li>
-            <li>Kilkuwyrazowe skróty, w których każdy skrócony wyraz jest zakończony kropką
+        <ol id="bullet">
+            <li id="listContent">Bezpośrednio po sobie następuje kilka takich znaków - wtedy spację stawiamy tylko po ostatnim z nich.</li>
+            <li id="listContent">Kilkuwyrazowe skróty, w których każdy skrócony wyraz jest zakończony kropką
                 - wtedy spację stawiamy tylko na końcu takiego skrótu.<br>
                 <u>przykład:</u><br>
                 "m.in." - między innymi, "Sp. z o.o." - spółka z ograniczoną odpowiedzialnością;
                 ale "100 tys. zł</li>
-            <li>Daty, godziny i liczby - jeśli występuje wewnątrz nich kropka, przecinek lub
+            <li id="listContent">Daty, godziny i liczby - jeśli występuje wewnątrz nich kropka, przecinek lub
                 dwukropek, nie stawiamy po nim spacji<br>
                 <u>przykład:</u><br>
                 "15.07.1410 r.", "9:08", "12,5" - notacja polska, "12.5" - notacja angielska</li>
         </ol>
         <h1>Jednostki fizyczne</h1>
         <p>Zawsze stawiamy przed nimi spację (nie dotyczy znaku procenta).</p>
-        <p><b>Poprawnie: </b> tel./fax m.in. 15.07.1410 r., 9:08, 1 kg, 100%, itp.
-        <b>Niepoprawnie: </b>tel. / fax m. in. 15. 07. 1410r. , 9: 08, 1 kg., 1kg, 100 %, itp..</p>
+        <b>Poprawnie: </b> tel./fax m.in. 15.07.1410 r., 9:08, 1 kg, 100%, itp.
+        <div style="color: red"><b>Niepoprawnie: </b>tel. / fax m. in. 15. 07. 1410r. , 9: 08, 1 kg., 1kg, 100 %, itp..</div>
         <h1>Nawiasy i cudzysłowy</h1>
         <p>Treść znajdująca się w nawiasie nigdy nie powinna być od niego oddzielona
             spacjami (dotyczy to zarówno początku jak i końca)!
@@ -45,10 +44,11 @@
         <h1>Spójniki</h1>
         <p>Nie pozostawiaj spójników takich jak: i, w, z - na końcu linii tekstu.</p>
         <h1>Czcionki</h1>
-        <p>Korzystaj z czcionek takich jak: <b>Arial</b>, <b>Verdena</b>, <b>Calibri</b>.<br> Jeśli nie podobają Ci się te czcionki wybierz inną – najważniejsze by była czytelna.</p>
+        <p>Korzystaj z czcionek takich jak: <b id="arial">Arial</b>, <b id="verdana">Verdena</b>, <b id="calibri">Calibri</b>.<br> Jeśli nie podobają Ci się te czcionki wybierz inną – najważniejsze by była czytelna.</p>
         <h1>Pisownia</h1>
         <p style="color: red;"><b><u>Pisz poprawną polszczyzną – nic nie razi bardziej w dokumentach
             oficjalnych niż błędy sytlistyczne i ortograficzne.</u></b></p>
-        <footer>autor: ******</footer>
+        </div>
+            <footer>autor: Krzysiek</footer>
 	</body>
 </html>
