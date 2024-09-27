@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyszukiwanie Powiatów/Gmin/Województw</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        #map {
+            height: 500px;
+            width: 70%;
+            float: left;
+        }
+
+        #results {
+            width: 28%;
+            float: right;
+            height: 500px;
+            overflow-y: auto;
+            border-left: 2px solid #ccc;
+            padding: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .result-item {
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .result-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wyszukiwanie Powiatów, Gmin i Województw</h1>
+
+    <input type="text" id="locationInput" placeholder="Wpisz nazwę powiatu/gminy/województwa" />
+    <button onclick="searchLocation()">Szukaj</button>
+
+    <div id="map"></div>
+    <div id="results">
+        <h3>Wyniki wyszukiwania</h3>
+        <div id="resultsList"></div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Inicjalizacja mapy
+        var map = L.map('map').setView([52.237049, 21.017532], 6); // Polska
+        var drawnItems = L.featureGroup().addTo(map); // Warstwa na obszary
+
+        // Dodanie kafelków mapy z OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Funkcja usuwająca poprzednie wyniki
+        function clearMap() {
+            drawnItems.clearLayers(); // Usuwa wszystkie warstwy
+            document.getElementById('resultsList').innerHTML = ''; // Czyści listę wyników
+        }
+
+        // Funkcja tworząca listę wyników
+        function addResultToList(result, lat, lon, geojsonLayer) {
+            var resultsList = document.getElementById('resultsList');
+            var resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+            resultItem.innerHTML = `<b>${result.display_name}</b>`;
+
+            // Po kliknięciu na wynik, mapa przesunie się do odpowiedniego miejsca i otworzy popup
+            resultItem.onclick = function () {
+                map.setView([lat, lon], 12);
+                geojsonLayer.openPopup();
+            };
+
+            resultsList.appendChild(resultItem);
+        }
+
+        // Funkcja wyszukiwania lokalizacji
+        function searchLocation() {
+            var locationName = document.getElementById('locationInput').value;
+
+            if (locationName === '') {
+                alert('Proszę wpisać nazwę powiatu, gminy lub województwa.');
+                return;
+            }
+
+            // Usuwanie poprzednich wyników z mapy i listy
+            clearMap();
+
+            // Wykorzystanie API Nominatim do wyszukiwania lokalizacji
+            var url = `https://nominatim.openstreetmap.org/search?format=json&polygon_geojson=1&q=${locationName}&countrycodes=PL`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        // Przetwarzanie wszystkich wyników
+                        data.forEach(result => {
+                            var lat = result.lat;
+                            var lon = result.lon;
+
+                            // Dodanie obszaru (poligonu) na mapie, jeśli dostępny
+                            if (result.geojson && (result.geojson.type === 'Polygon' || result.geojson.type === 'MultiPolygon')) {
+                                var geojsonLayer = L.geoJSON(result.geojson, {
+                                    style: function () {
+                                        return {
+                                            color: "blue",
+                                            weight: 2,
+                                            fillOpacity: 0.2
+                                        };
+                                    }
+                                }).addTo(drawnItems);
+
+                                // Dodanie popupu z nazwą lokalizacji
+                                geojsonLayer.bindPopup(`<b>${result.display_name}</b>`);
+
+                                // Dodanie wyniku do listy po prawej
+                                addResultToList(result, lat, lon, geojsonLayer);
+                            }
+                        });
+
+                        // Przeniesienie widoku mapy na pierwszy wynik
+                        var firstResult = data[0];
+                        map.setView([firstResult.lat, firstResult.lon], 10);
+                    } else {
+                        alert('Nie znaleziono lokalizacji.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Błąd podczas wyszukiwania:', error);
+                });
+        }
+    </script>
+</body>
+</html>
