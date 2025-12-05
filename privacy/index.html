@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy / Polityka Prywatności</title>
+  <meta name="description" content="Privacy Policy for Messenger-based interactive game" />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#7c3aed;
+      --muted:#9aa4b2;
+      --text:#e6eef6;
+      --maxw:900px;
+      --radius:12px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    body{
+      background: linear-gradient(180deg,#071127 0%, #081027 50%);
+      color:var(--text);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:28px;
+    }
+    .container{
+      width:100%;
+      max-width:var(--maxw);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      padding:28px;
+      box-sizing:border-box;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    .meta{color:var(--muted);font-size:13px}
+    .lang-toggle{font-size:13px;color:var(--accent);cursor:pointer;text-decoration:underline}
+    main{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    article{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);overflow:auto;max-height:68vh}
+    h2{margin-top:0;color:var(--accent)}
+    p{color:var(--text);line-height:1.5;font-size:14px}
+    ul{color:var(--text);line-height:1.5;margin-left:18px}
+    footer{margin-top:16px;color:var(--muted);font-size:13px}
+    .placeholder{color:var(--muted);font-style:italic}
+    @media (max-width:900px){
+      main{grid-template-columns:1fr}
+    }
+    .btn-copy{
+      background:transparent;border:1px solid rgba(255,255,255,0.04);
+      color:var(--text);padding:8px 10px;border-radius:8px;font-size:13px;cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <div>
+        <h1>Privacy Policy / Polityka Prywatności</h1>
+        <div class="meta">Last updated: <span id="lastUpdated" class="placeholder">[WPROWADŹ_DATĘ]</span> · Owner: <span id="owner" class="placeholder">[WPROWADŹ_NAZWĘ]</span></div>
+      </div>
+      <div style="text-align:right">
+        <div class="meta">Contact: <span id="contact" class="placeholder">[WPROWADŹ_EMAIL]</span></div>
+        <div style="height:8px"></div>
+        <button class="btn-copy" onclick="copyPolicy()">Kopiuj treść (do schowka)</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- POLISH -->
+      <article aria-labelledby="polish-title">
+        <h2 id="polish-title">Polityka Prywatności</h2>
+
+        <p><strong>Ostatnia aktualizacja:</strong> <span class="placeholder">[WPROWADŹ_DATĘ]</span></p>
+        <p><strong>Właściciel:</strong> <span class="placeholder">[WPROWADŹ_NAZWĘ]</span></p>
+
+        <h3>1. Jakie dane zbieramy</h3>
+        <p>Zbieramy tylko dane przekazane dobrowolnie przez uczestników w trakcie gry poprzez komunikator Messenger:</p>
+        <ul>
+          <li><strong>Wiadomości tekstowe</strong> wysłane do strony bota podczas gry.</li>
+          <li><strong>Zdjęcia i filmy</strong> przesłane przez uczestników jako część zadań.</li>
+          <li><strong>Dane techniczne z Facebooka</strong>: PSID (page-scoped ID), znaczniki czasu wiadomości oraz metadane niezbędne do dostarczania wiadomości.</li>
+        </ul>
+
+        <h3>2. W jaki sposób wykorzystujemy dane</h3>
+        <p>Dane są używane wyłącznie w celu realizacji gry:</p>
+        <ul>
+          <li>Weryfikacja wykonania zadań.</li>
+          <li>Wysyłanie odpowiedzi/feedbacku powiązanego z grą.</li>
+          <li>Przyznawanie punktów oraz prowadzenie rankingu.</li>
+        </ul>
+        <p>Dane nie są wykorzystywane do celów marketingowych ani profilowania.</p>
+
+        <h3>3. Udostępnianie danych</h3>
+        <p>Dane nie są sprzedawane ani udostępniane podmiotom trzecim. Dostęp do przesłanych treści mają wyłącznie administratorzy projektu oraz system automatycznej weryfikacji.</p>
+
+        <h3>4. Przechowywanie i usuwanie danych</h3>
+        <p>Pliki i logi mogą być przechowywane lokalnie na serwerze (np. Raspberry Pi) przez okres wydarzenia oraz przez maksymalnie <strong>30 dni</strong> po jego zakończeniu, chyba że użytkownik zażąda wcześniejszego usunięcia.</p>
+
+        <h3>5. Prawa użytkownika</h3>
+        <p>Użytkownik ma prawo do żądania dostępu do swoich danych, ich poprawienia oraz usunięcia. W przypadku takiej prośby prosimy o kontakt pod adresem e-mail: <span class="placeholder">[WPROWADŹ_EMAIL]</span>.</p>
+
+        <h3>6. Bezpieczeństwo danych</h3>
+        <p>Stosujemy środki techniczne i organizacyjne adekwatne do charakteru danych: ograniczony dostęp administratorów, komunikacja HTTPS (webhook), lokalne przechowywanie plików. Niemniej żaden system nie daje 100% gwarancji bezpieczeństwa.</p>
+
+        <h3>7. Dzieci</h3>
+        <p>Uczestnictwo dzieci (poniżej 13 lat) powinno odbywać się pod nadzorem opiekunów/wychowawców zgodnie z zasadami szkoły. Nie zbieramy świadomie dodatkowych danych osobowych dzieci poza tymi wymaganymi do rozgrywki.</p>
+
+        <h3>8. Kontakt</h3>
+        <p>W sprawach związanych z ochroną danych kontaktuj się: <strong><span class="placeholder">[WPROWADŹ_EMAIL]</span></strong></p>
+
+        <footer>
+          <p class="meta">Ta polityka może być aktualizowana. Zmiany będą publikowane na tej stronie.</p>
+        </footer>
+      </article>
+
+      <!-- ENGLISH -->
+      <article aria-labelledby="english-title">
+        <h2 id="english-title">Privacy Policy</h2>
+
+        <p><strong>Last updated:</strong> <span class="placeholder">[INSERT_DATE]</span></p>
+        <p><strong>Owner:</strong> <span class="placeholder">[INSERT_OWNER]</span></p>
+
+        <h3>1. Information We Collect</h3>
+        <p>The App receives only the data participants voluntarily send through Messenger while playing the game, including:</p>
+        <ul>
+          <li><strong>Text messages</strong> sent to the App’s Facebook Page during gameplay.</li>
+          <li><strong>Photos and videos</strong> submitted as part of tasks. These are visible to game administrators.</li>
+          <li><strong>Technical data from Facebook</strong>: PSID (page-scoped ID), message timestamps, and delivery metadata.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We use submitted messages and media solely to:</p>
+        <ul>
+          <li>verify task completion;</li>
+          <li>provide game-related feedback;</li>
+          <li>award or deduct points and maintain rankings.</li>
+        </ul>
+        <p>We do not use data for marketing or profiling.</p>
+
+        <h3>3. Data Sharing</h3>
+        <p>We do not sell or share personal data with third parties. Access is limited to our automated systems and game administrators.</p>
+
+        <h3>4. Data Storage and Retention</h3>
+        <p>Submitted content may be temporarily stored on our server for the duration of the event and up to <strong>30 days</strong> afterwards. Users can request earlier deletion.</p>
+
+        <h3>5. Your Rights</h3>
+        <p>Participants may request access, correction, or deletion of their data. Contact: <strong><span class="placeholder">[INSERT_EMAIL]</span></strong></p>
+
+        <h3>6. Data Security</h3>
+        <p>We use reasonable technical and organizational measures: administrator access control, HTTPS for webhooks, and local storage isolation. No transmission method is 100% secure.</p>
+
+        <h3>7. Children’s Privacy</h3>
+        <p>The App is intended for educational/recreational use in school. Children under 13 should participate under adult supervision. We do not intentionally collect extra personal data beyond what is needed for gameplay.</p>
+
+        <h3>8. Contact</h3>
+        <p>For privacy requests, please contact: <strong><span class="placeholder">[INSERT_EMAIL]</span></strong></p>
+
+        <footer>
+          <p class="meta">This policy may be updated — changes will be posted on this page.</p>
+        </footer>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    // Simple copy-to-clipboard: copies visible policy text (both columns)
+    function copyPolicy(){
+      const nodes = document.querySelectorAll('article');
+      let text = '';
+      nodes.forEach((n,i)=>{
+        text += (i===0 ? '=== POLITYKA (PL) ===\\n\\n' : '\\n\\n=== PRIVACY (EN) ===\\n\\n');
+        text += n.innerText + '\\n';
+      });
+      navigator.clipboard.writeText(text).then(()=>{
+        alert('Treść polityki skopiowana do schowka.');
+      }).catch(()=> alert('Kopiowanie nie powiodło się — skopiuj ręcznie.'));
+    }
+
+    // Small convenience: inject placeholder values if provided via URL params
+    function getParam(name){
+      try{
+        const u = new URL(location.href);
+        return u.searchParams.get(name);
+      }catch(e){ return null; }
+    }
+    const date = getParam('date') || '06.12.2025';
+    const owner = getParam('owner') || 'Krzysztof Zawadzki';
+    const email = getParam('email') || 'kzawadzki000@gmail.com';
+
+    document.getElementById('lastUpdated').innerText = date;
+    document.getElementById('owner').innerText = owner;
+    document.getElementById('contact').innerText = email;
+
+    // Update placeholders inside articles
+    document.querySelectorAll('.placeholder').forEach(el=>{
+    if(el.innerText.includes('INSERT_DATE') || el.innerText.includes('[WPROWADŹ_DATĘ]')){
+        el.innerText = date;
+    } else if(el.innerText.includes('INSERT_OWNER') || el.innerText.includes('[WPROWADŹ_NAZWĘ]')){
+        el.innerText = owner;
+    } else if(el.innerText.includes('INSERT_EMAIL') || el.innerText.includes('[WPROWADŹ_EMAIL]')){
+        el.innerText = email;
+    }
+});
+
+  </script>
+</body>
+</html>
