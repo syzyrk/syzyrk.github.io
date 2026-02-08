@@ -17,7 +17,8 @@ var resolutions = warstwa.zoomLevels.map(function(level) {
 
 var minX = warstwa.coordSys.minX;
 var minY = warstwa.coordSys.minY;
-
+
+
 var crs2178 = new L.Proj.CRS('EPSG:2178',
   "+proj=tmerc +lat_0=0 +lon_0=21 +k=0.999923 +x_0=7500000 +y_0=0 +ellps=GRS80 +units=m +no_defs",
   {
@@ -44,7 +45,45 @@ L.podkladWarszawski = L.TileLayer.extend({
     }
 });
 
+var lindley1 = new L.podkladWarszawski('', {
+    minZoom: 0,
+    maxZoom: resolutions.length - 1,
+    noWrap: true,
+    continuousWorld: true,
+    mapname: "DANE_WAWA.LINDLEY"
+});
 
+var lindley2 = new L.podkladWarszawski('', {
+    minZoom: 0,
+    maxZoom: resolutions.length - 1,
+    noWrap: true,
+    continuousWorld: true,
+    mapname: "DANE_WAWA.LINDLEY_2500_H"
+});
+
+var lindley3 = new L.podkladWarszawski('', {
+    minZoom: 0,
+    maxZoom: resolutions.length - 1,
+    noWrap: true,
+    continuousWorld: true,
+    mapname: "DANE_WAWA.LINDLEY_2500_S_1900"
+});
+
+var lindley4 = new L.podkladWarszawski('', {
+    minZoom: 0,
+    maxZoom: resolutions.length - 1,
+    noWrap: true,
+    continuousWorld: true,
+    mapname: "DANE_WAWA.LINDLEY_2500_S"
+});
+
+var planBos = new L.podkladWarszawski('', {
+    minZoom: 0,
+    maxZoom: resolutions.length - 1,
+    noWrap: true,
+    continuousWorld: true,
+    mapname: "DANE_WAWA.PLAN_BOS"
+});
 
 var plan1936 = new L.podkladWarszawski('', {
     minZoom: 0,
@@ -69,13 +108,17 @@ var map = L.map('map', {
     layers: [plan1936]
 }).setView([52.22878, 21.0033], 10);
 
-warszawaPodklad.addTo(map);
 plan1936.addTo(map);
 
 
 var baseMaps = {
+    "Mapa Warszawy": warszawaPodklad,
+    "Plan BOS": planBos,
     "Plan 1936": plan1936,
-    "Mapa Warszawy": warszawaPodklad
+    "Lindley1": lindley1,
+    "Lindley2": lindley2,
+    "Lindley3": lindley3,
+    "Lindley4": lindley4
 };
 
 var layerControl = L.control.layers(baseMaps).addTo(map).setPosition("bottomleft");
@@ -111,5 +154,6 @@ var controlSearch = new L.Control.Search({
 		zoom: 12,
 		marker: false
 	});
+
 
 map.addControl( controlSearch );
