@@ -17,8 +17,7 @@ var resolutions = warstwa.zoomLevels.map(function(level) {
 
 var minX = warstwa.coordSys.minX;
 var minY = warstwa.coordSys.minY;
-
-// 2. CRS: Definicja EPSG:2178 (Układ 2000 strefa 7 lub podobny płaski)
+
 var crs2178 = new L.Proj.CRS('EPSG:2178',
   "+proj=tmerc +lat_0=0 +lon_0=21 +k=0.999923 +x_0=7500000 +y_0=0 +ellps=GRS80 +units=m +no_defs",
   {
