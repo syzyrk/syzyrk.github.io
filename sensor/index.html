@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="content">
+</div>
+
+<script>
+const xhttp = new XMLHttpRequest();
+xhttp.onload = function() {
+  var znalezione = [];
+  var dane = this.responseText;
+  const jsonData = JSON.parse(dane);
+  for (let i = 0; i < jsonData.length; i++){
+    if(jsonData[i]["location"]["id"] == 10857){
+      for (let y = 0; y < jsonData[i]["sensordatavalues"].length; y++){
+      	znalezione.push(jsonData[i]["sensordatavalues"][y])
+      }
+      
+    }
+  }
+  var pm10, pm25, temp, humid;
+  for (let x = 0; x < znalezione.length; x++){
+  	switch(znalezione[x]["value_type"]){
+    	case "P1": pm10 = znalezione[x]["value"]
+        case "P2": pm25 = znalezione[x]["value"]
+        case "temperature": temp = znalezione[x]["value"]
+        case "humidity": humid = znalezione[x]["value"]
+    }
+  }
+  var text = `{"pm10":${pm10}, "pm25":${pm25}, "temp":${temp}, "humid":${humid}}`
+  document.getElementById("content").innerHTML = text
+}
+xhttp.open("GET", "https://data.sensor.community/static/v2/data.json");
+xhttp.send();
+</script>
+
+</body>
+</html>
