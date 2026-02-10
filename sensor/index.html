@@ -21,8 +21,9 @@ xhttp.onload = function() {
   }
   var pm10, pm25, temp, humid;
   for (let x = 0; x < znalezione.length; x++){
+    console.log(`${znalezione[x]["value_type"]}: ${znalezione[x]["value"]}`)
   	switch(znalezione[x]["value_type"]){
-    	case "P1": pm10 = znalezione[x]["value"]
+    	  case "P1": pm10 = znalezione[x]["value"]
         case "P2": pm25 = znalezione[x]["value"]
         case "temperature": temp = znalezione[x]["value"]
         case "humidity": humid = znalezione[x]["value"]
