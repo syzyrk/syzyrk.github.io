@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl_PL">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tour de France - Krzysztof Zawadzki 4E</title>
+  </head>
+  <body>
+    <div
+      class="container-wrapper-genially"
+      style="position: relative; min-height: 400px; max-width: 100%"
+    >
+      <div
+        id="6acce1aedab714c24cddab04"
+        class="genially-embed"
+        style="margin: 0px auto; position: relative; height: auto; width: 100%"
+      ></div>
+    </div>
+    <script>
+      (function (d) {
+        var js,
+          id = "genially-embed-js",
+          ref = d.getElementsByTagName("script")[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement("script");
+        js.id = id;
+        js.async = true;
+        js.src = "https://view.genially.com/static/embed/embed.js";
+        ref.parentNode.insertBefore(js, ref);
+      })(document);
+      setTimeout(() => {
+        const container = document.getElementById("6acce1aedab714c24cddab04");
+        if (container) {
+          const watermark = container.querySelector(
+            'a[href="https://genially.com?from=watermark-powered"]',
+          );
+          if (watermark) watermark.remove();
+        }
+      }, 2000);
+    </script>
+  </body>
+</html>
