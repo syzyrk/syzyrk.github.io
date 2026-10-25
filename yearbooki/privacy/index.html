@@ -230,7 +230,7 @@
       <ul class="nav-links">
         <li><a href="https://syzyrk.github.io/yearbooki/#about">O systemie</a></li>
         <li><a href="https://syzyrk.github.io/yearbooki/#features">Jak to działa</a></li>
-        <li><a href="https://syzyrk.github.io/yearbooki/#terms">Warunki korzystania</a></li>
+        <li><a href="https://syzyrk.github.io/yearbooki/terms">Warunki korzystania</a></li>
         <li><a href="#">Polityka Prywatności</a></li>
       </ul>
     </div>
@@ -248,7 +248,6 @@
       <article class="policy-box">
         <div class="policy-meta">
           <div>Ostatnia aktualizacja: <strong id="lastUpdated">25.10.2026</strong></div>
-          <div>Właściciel: <strong id="owner">Krzysztof Zawadzki</strong></div>
           <div>Kontakt: <strong id="contact">yearbooki.banacha@gmail.com</strong></div>
         </div>
 
@@ -294,7 +293,6 @@
         <p>Wszelkie pytania lub żądania dotyczące prywatności i przetwarzania danych na Platformie prosimy kierować na adres e-mail: <strong id="contactText">yearbooki.banacha@gmail.com</strong></p>
 
         <div class="actions">
-          <button class="btn" onclick="copyPolicy()">📋 Kopiuj treść polityki</button>
           <a href="https://syzyrk.github.io/yearbooki/" class="btn btn-secondary">Powrót do strony głównej</a>
         </div>
       </article>
@@ -307,15 +305,6 @@
   </footer>
 
   <script>
-    function copyPolicy() {
-      const article = document.querySelector('article');
-      navigator.clipboard.writeText(article.innerText).then(() => {
-        alert('Treść Polityki Prywatności została skopiowana do schowka.');
-      }).catch(() => {
-        alert('Nie udało się skopiować treści. Możesz zaznaczyć tekst i skopiować go ręcznie.');
-      });
-    }
-
     function getParam(name) {
       try {
         const u = new URL(location.href);
@@ -324,11 +313,9 @@
     }
 
     const date = getParam('date') || '25.10.2026';
-    const owner = getParam('owner') || 'Krzysztof Zawadzki';
     const email = getParam('email') || 'yearbooki.banacha@gmail.com';
 
     document.getElementById('lastUpdated').innerText = date;
-    document.getElementById('owner').innerText = owner;
     document.getElementById('contact').innerText = email;
     document.getElementById('contactText').innerText = email;
   </script>
