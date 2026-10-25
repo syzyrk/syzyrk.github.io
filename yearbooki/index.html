@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yearbooki Banacha - Szkolna Kronika i Sesje Zdjęciowe</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      padding: 4.5rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-content {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 4px;
+      background: var(--primary);
+      margin-top: 0.4rem;
+      border-radius: 2px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      background: var(--surface);
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    .terms-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .terms-box h3 {
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .terms-box h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .terms-box p, .terms-box ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .terms-box ul {
+      padding-left: 1.25rem;
+    }
+
+    .privacy-callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .privacy-callout p {
+      margin-bottom: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">Yearbooki Banacha</a>
+      <ul class="nav-links">
+        <li><a href="#about">O systemie</a></li>
+        <li><a href="#features">Jak to działa</a></li>
+        <li><a href="#terms">Warunki korzystania</a></li>
+        <li><a href="https://syzyrk.github.io/yearbooki/privacy/">Polityka prywatności</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Szkolna Kronika i Sesje Zdjęciowe w Nowoczesnym Wydaniu</h1>
+        <p>Platforma ułatwiająca organizację szkolnego yearbooka — bezpieczne wybieranie zdjęć z sesji, dodawanie własnych cytatów oraz inteligentna moderacja wspierana przez sztuczną inteligencję.</p>
+        <a href="https://syzyrk.github.io/yearbooki/privacy/" class="btn">Zobacz Politykę Prywatności</a>
+      </div>
+    </section>
+
+    <div class="container">
+      <section id="about">
+        <h2>O Platformie</h2>
+        <p>Yearbooki Banacha to przyjazna platforma stworzona z myślą o sprawnym przygotowaniu pamiątkowej kroniki szkolnej. Łączy pracę fotografa, wybory uczniów oraz nadzór nauczycieli i moderatorów w jednym czytelnym miejscu.</p>
+      </section>
+
+      <section id="features">
+        <h2>Co Oferuje System?</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>📸 Wybór Zdjęć</h3>
+            <p>Uczniowie mogą zalogować się do swojego profilu, wygodnie przejrzeć ujęcia wykonane podczas szkolnej sesji fotograficznej i wybrać to, które znajdzie się w kronice.</p>
+          </div>
+          <div class="card">
+            <h3>💬 Personalizacja i Cytaty</h3>
+            <p>Każdy uczeń ma możliwość wpisania pamiątkowej wiadomości lub ulubionego cytatu, który opublikowany zostanie obok jego zdjęcia.</p>
+          </div>
+          <div class="card">
+            <h3>🤖 Wsparcie Sztucznej Inteligencji</h3>
+            <p>System wykorzystuje algorytmy AI (Google Gemini), które automatycznie pomagają sprawdzać, czy wprowadzane cytaty i zdjęcia są odpowiednie i zgodne z zasadami szkoły.</p>
+          </div>
+          <div class="card">
+            <h3>🛡️ Moderacja i Bezpieczeństwo</h3>
+            <p>Oprócz automatycznej weryfikacji AI, treści podlegają ostatecznemu zatwierdzeniu przez szkolnych recenzentów, co gwarantuje wysoką jakość i kulturalny poziom kroniki.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Jak Wygląda Proces?</h2>
+        <div class="steps">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <div>
+              <strong>Szkolna Sesja Zdjęciowa:</strong> Uczniowie biorą udział w sesji zdjęciowej. Po jej zakończeniu dedykowany system przypisuje ujęcia do poszczególnych klas i osób.
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <div>
+              <strong>Logowanie i Wybór:</strong> Uczeń loguje się za pomocą unikalnego kodu i PIN-u, wybiera preferowane zdjęcie oraz wpisuje swój cytat.
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <div>
+              <strong>Weryfikacja AI i Moderacja:</strong> AI sprawdza tekst pod kątem niestosownych treści. Następnie wyznaczony opiekun akceptuje wpis lub prosi o ewentualną poprawkę.
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">4</div>
+            <div>
+              <strong>Gotowy Yearbook:</strong> Po zatwierdzeniu wszystkich profilów powstaje spójna, pamiątkowa kronika szkolna.
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="privacy" class="privacy-callout">
+        <h2>Ochrona Danych i Prywatność</h2>
+        <p>Dbamy o prywatność uczniów i bezpieczeństwo ich danych osobowych oraz wizerunku. Przetwarzanie danych odbywa się w oparciu o zasady RODO.</p>
+        <a href="https://syzyrk.github.io/yearbooki/privacy/" class="btn">Przeczytaj Pełną Politykę Prywatności</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Yearbooki Banacha. Wszelkie prawa zastrzeżone.</p>
+    <p><a href="https://syzyrk.github.io/yearbooki/privacy/">Polityka Prywatności</a></p>
+  </footer>
+
+</body>
+</html>
