@@ -38,7 +38,7 @@
     h1{font-size:20px;margin:0}
     .meta{color:var(--muted);font-size:13px}
     .lang-toggle{font-size:13px;color:var(--accent);cursor:pointer;text-decoration:underline}
-    main{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    
     article{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);overflow:auto;max-height:68vh}
     h2{margin-top:0;color:var(--accent)}
     p{color:var(--text);line-height:1.5;font-size:14px}
@@ -87,80 +87,41 @@
         <p>Nasza Platforma integruje się z usługami Google za pomocą protokołu OAuth 2.0.</p>
         <ul>
           <li><strong>Zakres dostępu (<code>drive.file</code>):</strong>Aplikacja uzyskuje dostęp wyłącznie do plików na Dysku Google, które zostały bezpośrednio przez nią utworzone lub do niej przesłane w celu obsługi sesji zdjęciowych (np. przechowywanie i import zdjęć uczniów).</li>
-          <li>Wysyłanie odpowiedzi/feedbacku powiązanego z grą.</li>
-          <li>Przyznawanie punktów oraz prowadzenie rankingu.</li>
+          <li><strong>Wykorzystanie danych:</strong> Dane z Dysku Google są wykorzystywane wyłącznie do wyświetlania zdjęć wewnątrz Platformy oraz generowania gotowych stron kroniki.</li>
+          <li><strong>Przechowywanie i prywatność:</strong> Nie czytamy, nie modyfikujemy ani nie usuwamy żadnych innych prywatnych plików użytkownika na Dysku Google, do których nie daliśmy wyraźnego uprawnienia w ramach zakresu <code>drive.file</code>. Dane uwierzytelniające (Access Token / Refresh Token) są przechowywane w sposób bezpieczny i zaszyfrowany.</li>
         </ul>
-        <p>Dane nie są wykorzystywane do celów marketingowych ani profilowania.</p>
 
-        <h3>3. Udostępnianie danych</h3>
-        <p>Dane nie są sprzedawane ani udostępniane podmiotom trzecim. Dostęp do przesłanych treści mają wyłącznie administratorzy projektu oraz system automatycznej weryfikacji.</p>
+        <h3>3. Moderacja Treści (Sztuczna Inteligencja i Moderatorzy)</h3>
+        <p>W celu zapewnienia bezpieczeństwa i zapobiegania publikacji treści obraźliwych lub wulgarnych w szkolnej kronice, wprowadzane przez uczniów cytaty podlegają weryfikacji:</p>
+        <ul>
+          <li><strong>Automatyczna moderacja (Sztuczna Inteligencja):</strong> Tekst cytatu jest analizowany przez model językowy AI (Google Gemini) wyłącznie pod kątem wykrywania spamu, wulgaryzmów, mowy nienawiści lub nękania. Dane przesłane do modelu nie są wykorzystywane do trenowania zewnętrznych algorytmów.</li>
+          <li><strong>Moderacja ludzka (Anonimowy reviewer):</strong> W przypadku wątpliwości systemu AI, treść cytatu może zostać przekazana do weryfikacji anonimowemu moderatorowi (nauczycielowi lub administratorowi szkoły), który podejmuje ostateczną decyzję o akceptacji lub odrzuceniu wpisu.</li>
+        </ul>
 
-        <h3>4. Przechowywanie i usuwanie danych</h3>
-        <p>Pliki i logi mogą być przechowywane lokalnie na serwerze (np. Raspberry Pi) przez okres wydarzenia oraz przez maksymalnie <strong>30 dni</strong> po jego zakończeniu, chyba że użytkownik zażąda wcześniejszego usunięcia.</p>
+        <h3>4. Odbiorcy Danych i Udostępnianie</h3>
+        <p>Dane osobowe użytkowników nie są sprzedawane ani udostępniane podmiotom trzecim w celach marketingowych. Odbiorcami danych mogą być wyłącznie:</p>
+        <ul>
+          <li>Szkoła lub organizator kroniki (w celu wydruku i publikacji yearbooka).</li>
+          <li>Podmioty techniczne świadczące usługi hostingu oraz dostawcy narzędzi API (Google Cloud Platform) na podstawie stosownych umów powierzenia przetwarzania danych.</li>
+        </ul>
 
         <h3>5. Prawa użytkownika</h3>
-        <p>Użytkownik ma prawo do żądania dostępu do swoich danych, ich poprawienia oraz usunięcia. W przypadku takiej prośby prosimy o kontakt pod adresem e-mail: <span class="placeholder">[WPROWADŹ_EMAIL]</span>.</p>
+        <p>Każdemu użytkownikowi (lub jego prawnemu opiekunowi w przypadku osób niepełnoletnich) przysługuje prawo do:</p>
+        <ul>
+          <li>Wglądu w swoje dane oraz ich poprawiania.</li>
+          <li>Żądania usunięcia danych (co wiąże się z rezygnacją z udziału w kronice).</li>
+          <li>Cofnięcia zgody na przetwarzanie danych w dowolnym momencie.</li>
+          <li>W przypadku integracji z kontem Google, użytkownik może w każdej chwili cofnąć uprawnienia dla aplikacji w ustawieniach bezpieczeństwa swojego kontka Google (sekcja „Dostęp firm trzecich do Twojego konta”).</li>
+        </ul>
 
-        <h3>6. Bezpieczeństwo danych</h3>
-        <p>Stosujemy środki techniczne i organizacyjne adekwatne do charakteru danych: ograniczony dostęp administratorów, komunikacja HTTPS (webhook), lokalne przechowywanie plików. Niemniej żaden system nie daje 100% gwarancji bezpieczeństwa.</p>
-
-        <h3>7. Dzieci</h3>
-        <p>Uczestnictwo dzieci (poniżej 13 lat) powinno odbywać się pod nadzorem opiekunów/wychowawców zgodnie z zasadami szkoły. Nie zbieramy świadomie dodatkowych danych osobowych dzieci poza tymi wymaganymi do rozgrywki.</p>
-
-        <h3>8. Kontakt</h3>
-        <p>W sprawach związanych z ochroną danych kontaktuj się: <strong><span class="placeholder">[WPROWADŹ_EMAIL]</span></strong></p>
-
+        <h3>6. Kontakt</h3>
+        <p>Wszelkie pytania lub żądania dotyczące prywatności i przetwarzania danych na Platformie prosimy kierować na adres e-mail: <strong><span class="placeholder">[WPROWADŹ_EMAIL]</span></strong></p>
+        
         <footer>
           <p class="meta">Ta polityka może być aktualizowana. Zmiany będą publikowane na tej stronie.</p>
         </footer>
       </article>
 
-      <!-- ENGLISH -->
-      <article aria-labelledby="english-title">
-        <h2 id="english-title">Privacy Policy</h2>
-
-        <p><strong>Last updated:</strong> <span class="placeholder">[INSERT_DATE]</span></p>
-        <p><strong>Owner:</strong> <span class="placeholder">[INSERT_OWNER]</span></p>
-
-        <h3>1. Information We Collect</h3>
-        <p>The App receives only the data participants voluntarily send through Messenger while playing the game, including:</p>
-        <ul>
-          <li><strong>Text messages</strong> sent to the App’s Facebook Page during gameplay.</li>
-          <li><strong>Photos and videos</strong> submitted as part of tasks. These are visible to game administrators.</li>
-          <li><strong>Technical data from Facebook</strong>: PSID (page-scoped ID), message timestamps, and delivery metadata.</li>
-        </ul>
-
-        <h3>2. How We Use Your Information</h3>
-        <p>We use submitted messages and media solely to:</p>
-        <ul>
-          <li>verify task completion;</li>
-          <li>provide game-related feedback;</li>
-          <li>award or deduct points and maintain rankings.</li>
-        </ul>
-        <p>We do not use data for marketing or profiling.</p>
-
-        <h3>3. Data Sharing</h3>
-        <p>We do not sell or share personal data with third parties. Access is limited to our automated systems and game administrators.</p>
-
-        <h3>4. Data Storage and Retention</h3>
-        <p>Submitted content may be temporarily stored on our server for the duration of the event and up to <strong>30 days</strong> afterwards. Users can request earlier deletion.</p>
-
-        <h3>5. Your Rights</h3>
-        <p>Participants may request access, correction, or deletion of their data. Contact: <strong><span class="placeholder">[INSERT_EMAIL]</span></strong></p>
-
-        <h3>6. Data Security</h3>
-        <p>We use reasonable technical and organizational measures: administrator access control, HTTPS for webhooks, and local storage isolation. No transmission method is 100% secure.</p>
-
-        <h3>7. Children’s Privacy</h3>
-        <p>The App is intended for educational/recreational use in school. Children under 13 should participate under adult supervision. We do not intentionally collect extra personal data beyond what is needed for gameplay.</p>
-
-        <h3>8. Contact</h3>
-        <p>For privacy requests, please contact: <strong><span class="placeholder">[INSERT_EMAIL]</span></strong></p>
-
-        <footer>
-          <p class="meta">This policy may be updated — changes will be posted on this page.</p>
-        </footer>
-      </article>
     </main>
   </div>
 
