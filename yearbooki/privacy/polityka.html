@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polityka Prywatności - Yearbooki Banacha</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-content {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .policy-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .policy-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .policy-meta strong {
+      color: var(--text);
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+
+    }
+
+    ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    code {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875em;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #f1f5f9;
+      color: var(--text);
+    }
+
+    .actions {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="https://syzyrk.github.io/yearbooki/" class="logo">Yearbooki Banacha</a>
+      <ul class="nav-links">
+        <li><a href="https://syzyrk.github.io/yearbooki/#about">O systemie</a></li>
+        <li><a href="https://syzyrk.github.io/yearbooki/#features">Jak to działa</a></li>
+        <li><a href="https://syzyrk.github.io/yearbooki/#terms">Warunki korzystania</a></li>
+        <li><a href="#">Polityka Prywatności</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Polityka Prywatności</h1>
+        <p>Zasady przetwarzania danych osobowych oraz wizerunku w ramach platformy Yearbooki Banacha</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <article class="policy-box">
+        <div class="policy-meta">
+          <div>Ostatnia aktualizacja: <strong id="lastUpdated">25.10.2026</strong></div>
+          <div>Właściciel: <strong id="owner">Krzysztof Zawadzki</strong></div>
+          <div>Kontakt: <strong id="contact">yearbooki.banacha@gmail.com</strong></div>
+        </div>
+
+        <h2>1. Jakie dane zbieramy</h2>
+        <p>Przetwarzamy wyłącznie dane niezbędne do realizacji funkcji Platformy i przygotowania szkolnej kroniki:</p>
+        <ul>
+          <li><strong>Dane uczniów:</strong> Kod dostępu, kod PIN, wybrane zdjęcie profilowe oraz wpisany cytat szkolny. Dane te są przetwarzane w celu umożliwienia wyboru zdjęcia do kroniki oraz personalizacji wpisu w yearbooku.</li>
+          <li><strong>Dane administratorów i fotografów:</strong> Adres e-mail (w tym dane logowania Google) oraz nazwa użytkownika – w celu zarządzania sesjami, importu zdjęć oraz wysyłania powiadomień systemowych.</li>
+        </ul>
+
+        <h2>2. Integracja z Usługami Google (Google Drive API)</h2>
+        <p>Nasza Platforma integruje się z usługami Google za pomocą bezpiecznego protokołu OAuth 2.0.</p>
+        <ul>
+          <li><strong>Zakres dostępu (<code>drive.file</code>):</strong> Aplikacja uzyskuje dostęp wyłącznie do plików na Dysku Google, które zostały bezpośrednio przez nią utworzone lub do niej przesłane w celu obsługi sesji zdjęciowych (np. przechowywanie i import zdjęć uczniów).</li>
+          <li><strong>Wykorzystanie danych:</strong> Dane z Dysku Google są wykorzystywane wyłącznie do wyświetlania zdjęć wewnątrz Platformy oraz generowania gotowych stron kroniki.</li>
+          <li><strong>Przechowywanie i prywatność:</strong> Nie czytamy, nie modyfikujemy ani nie usuwamy żadnych innych prywatnych plików użytkownika na Dysku Google, do których nie daliśmy wyraźnego uprawnienia w ramach zakresu <code>drive.file</code>. Dane uwierzytelniające (Access Token / Refresh Token) są przechowywane w sposób bezpieczny i zaszyfrowany.</li>
+        </ul>
+
+        <h2>3. Moderacja Treści (Sztuczna Inteligencja i Moderatorzy)</h2>
+        <p>W celu zapewnienia bezpieczeństwa i zapobiegania publikacji treści obraźliwych lub wulgarnych w szkolnej kronice, wprowadzane przez uczniów cytaty podlegają weryfikacji:</p>
+        <ul>
+          <li><strong>Automatyczna moderacja (Sztuczna Inteligencja):</strong> Tekst cytatu jest analizowany przez model językowy AI (Google Gemini) wyłącznie pod kątem wykrywania spamu, wulgaryzmów, mowy nienawiści lub nękania. Dane przesłane do modelu nie są wykorzystywane do trenowania zewnętrznych algorytmów.</li>
+          <li><strong>Moderacja ludzka (Anonimowy reviewer):</strong> W przypadku wątpliwości systemu AI, treść cytatu może zostać przekazana do weryfikacji anonimowemu moderatorowi (nauczycielowi lub administratorowi szkoły), który podejmuje ostateczną decyzję o akceptacji lub odrzuceniu wpisu.</li>
+        </ul>
+
+        <h2>4. Odbiorci Danych i Udostępnianie</h2>
+        <p>Dane osobowe użytkowników nie są sprzedawane ani udostępniane podmiotom trzecim w celach marketingowych. Odbiorcami danych mogą być wyłącznie:</p>
+        <ul>
+          <li>Szkoła lub organizator kroniki (w celu wydruku i publikacji yearbooka).</li>
+          <li>Podmioty techniczne świadczące usługi hostingu oraz dostawcy narzędzi API (Google Cloud Platform) na podstawie stosownych umów powierzenia przetwarzania danych.</li>
+        </ul>
+
+        <h2>5. Prawa Użytkownika</h2>
+        <p>Każdemu użytkownikowi (lub jego prawnemu opiekunowi w przypadku osób niepełnoletnich) przysługuje prawo do:</p>
+        <ul>
+          <li>Wglądu w swoje dane oraz ich poprawiania.</li>
+          <li>Żądania usunięcia danych (co wiąże się z rezygnacją z udziału w kronice).</li>
+          <li>Cofnięcia zgody na przetwarzanie danych w dowolnym momencie.</li>
+          <li>W przypadku integracji z kontem Google, użytkownik może w każdej chwili cofnąć uprawnienia dla aplikacji w ustawieniach bezpieczeństwa swojego konta Google (sekcja „Aplikacje z dostępem do Twojego konta”).</li>
+        </ul>
+
+        <h2>6. Kontakt</h2>
+        <p>Wszelkie pytania lub żądania dotyczące prywatności i przetwarzania danych na Platformie prosimy kierować na adres e-mail: <strong id="contactText">yearbooki.banacha@gmail.com</strong></p>
+
+        <div class="actions">
+          <button class="btn" onclick="copyPolicy()">📋 Kopiuj treść polityki</button>
+          <a href="https://syzyrk.github.io/yearbooki/" class="btn btn-secondary">Powrót do strony głównej</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Yearbooki Banacha. Wszelkie prawa zastrzeżone.</p>
+    <p><a href="https://syzyrk.github.io/yearbooki/">Strona Główna</a></p>
+  </footer>
+
+  <script>
+    function copyPolicy() {
+      const article = document.querySelector('article');
+      navigator.clipboard.writeText(article.innerText).then(() => {
+        alert('Treść Polityki Prywatności została skopiowana do schowka.');
+      }).catch(() => {
+        alert('Nie udało się skopiować treści. Możesz zaznaczyć tekst i skopiować go ręcznie.');
+      });
+    }
+
+    function getParam(name) {
+      try {
+        const u = new URL(location.href);
+        return u.searchParams.get(name);
+      } catch(e) { return null; }
+    }
+
+    const date = getParam('date') || '25.10.2026';
+    const owner = getParam('owner') || 'Krzysztof Zawadzki';
+    const email = getParam('email') || 'yearbooki.banacha@gmail.com';
+
+    document.getElementById('lastUpdated').innerText = date;
+    document.getElementById('owner').innerText = owner;
+    document.getElementById('contact').innerText = email;
+    document.getElementById('contactText').innerText = email;
+  </script>
+
+</body>
+</html>
