@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="pl">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>ATER Śpiewnik — kreator piosenki (JSON)</title>
+      <style>
+         :root {
+            --bg: #eef1f5;
+            --panel: #fff;
+            --ink: #1d2330;
+            --muted: #6b7280;
+            --line: #dde1e7;
+            --accent: #2b6cb0;
+            --ok: #2f855a;
+            --danger: #c53030;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+         }
+         * {
+            box-sizing: border-box;
+         }
+         body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family:
+               system-ui,
+               -apple-system,
+               "Segoe UI",
+               Roboto,
+               Arial,
+               sans-serif;
+            font-size: 14px;
+         }
+
+         /* ---------- topbar ---------- */
+         .topbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+         }
+         .topbar h1 {
+            font-size: 17px;
+            margin: 0;
+         }
+         .sub {
+            margin: 2px 0 0;
+            font-size: 12px;
+            color: var(--muted);
+         }
+         .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+         }
+
+         /* ---------- layout ---------- */
+         .wrap {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 18px;
+            padding: 18px 24px 70px;
+            max-width: 1520px;
+            margin: 0 auto;
+         }
+         @media (max-width: 1020px) {
+            .wrap {
+               grid-template-columns: 1fr;
+            }
+         }
+         .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 0;
+         }
+         h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin: 20px 0 10px;
+            font-weight: 700;
+         }
+         h2:first-child {
+            margin-top: 0;
+         }
+
+         /* ---------- form ---------- */
+         .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 12px;
+         }
+         .grid2 .full {
+            grid-column: 1/-1;
+         }
+         @media (max-width: 560px) {
+            .grid2 {
+               grid-template-columns: 1fr;
+            }
+         }
+         .field {
+            display: block;
+            margin-bottom: 10px;
+         }
+         .field > span {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a5262;
+            margin-bottom: 4px;
+         }
+         input[type="text"],
+         input[type="number"],
+         select,
+         textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cfd5de;
+            border-radius: 8px;
+            font: inherit;
+            font-size: 14px;
+            background: #fff;
+            color: inherit;
+         }
+         input:focus,
+         select:focus,
+         textarea:focus {
+            outline: 2px solid #a9c6e6;
+            outline-offset: 1px;
+            border-color: var(--accent);
+         }
+         .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 6px 0;
+         }
+
+         /* ---------- buttons ---------- */
+         .btn {
+            font: inherit;
+            font-size: 13px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid #cfd5de;
+            background: #fff;
+            color: var(--ink);
+            cursor: pointer;
+            white-space: nowrap;
+         }
+         .btn:hover {
+            background: #f2f5f9;
+         }
+         .btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+         }
+         .btn.primary:hover {
+            background: #245a94;
+         }
+         .btn.ghost {
+            background: #f7f9fc;
+         }
+         .btn.danger {
+            color: var(--danger);
+            border-color: #f0c2c2;
+         }
+         .btn.danger:hover {
+            background: #fdf2f2;
+         }
+         .btn.icon {
+            padding: 5px 8px;
+            line-height: 1;
+            font-size: 12px;
+         }
+         .btn.small {
+            font-size: 12px;
+            padding: 4px 9px;
+         }
+
+         /* ---------- sections ---------- */
+         .card {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
+            background: #fafbfc;
+         }
+         .card-head {
+            display: grid;
+            grid-template-columns: 150px minmax(0, 1fr) auto;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+         }
+         @media (max-width: 620px) {
+            .card-head {
+               grid-template-columns: 1fr;
+            }
+            .card-tools {
+               justify-content: flex-end;
+            }
+         }
+         .card-tools {
+            display: flex;
+            gap: 4px;
+         }
+         .lines {
+            display: flex;
+            flex-direction: column;
+         }
+         .line {
+            display: grid;
+            grid-template-columns: 150px minmax(0, 1fr) auto;
+            gap: 8px;
+            align-items: start;
+            padding: 9px 0;
+            border-top: 1px dashed #e2e5ea;
+         }
+         @media (max-width: 620px) {
+            .line {
+               grid-template-columns: 1fr;
+            }
+            .line-tools {
+               justify-content: flex-end;
+            }
+         }
+         .line-tools {
+            display: flex;
+            gap: 4px;
+         }
+         .line-body {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+         }
+         .chords {
+            background: #fff;
+            border: 1px solid #e7ebf0;
+            border-radius: 8px;
+            padding: 8px;
+         }
+         .chord-row {
+            display: grid;
+            grid-template-columns: 90px 90px auto;
+            gap: 6px;
+            align-items: center;
+            margin-bottom: 6px;
+         }
+         .inp-chord {
+            font-family: var(--mono);
+         }
+         .inp-pos {
+            font-family: var(--mono);
+         }
+
+         /* ---------- preview ---------- */
+         .preview {
+            background: #fffdf5;
+            border: 1px solid #e8e2cc;
+            border-radius: 10px;
+            padding: 12px;
+            max-height: 430px;
+            overflow: auto;
+            font-family: var(--mono);
+            font-size: 13px;
+            line-height: 1.35;
+         }
+         .prev-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            font-family: inherit;
+         }
+         .prev-meta {
+            font-size: 11.5px;
+            color: #7a6f52;
+            font-family: inherit;
+            margin-bottom: 2px;
+         }
+         .psection {
+            margin-top: 14px;
+         }
+         .psec-head {
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #a08b5e;
+            margin-bottom: 4px;
+         }
+         .pline {
+            margin-bottom: 3px;
+         }
+         .pchords {
+            color: #c05621;
+            white-space: pre;
+            height: 1.15em;
+         }
+         .ptext {
+            white-space: pre;
+            min-height: 1.2em;
+            color: #2a2a2a;
+         }
+
+         /* ---------- validation / json ---------- */
+         .ok {
+            color: var(--ok);
+            background: #eefaf1;
+            border: 1px solid #bfe6cc;
+            border-radius: 8px;
+            padding: 9px 11px;
+            font-size: 13px;
+         }
+         ul.errs {
+            margin: 0;
+            padding-left: 18px;
+            max-height: 240px;
+            overflow: auto;
+         }
+         ul.errs li {
+            color: var(--danger);
+            font-size: 12.5px;
+            margin-bottom: 4px;
+            font-family: var(--mono);
+         }
+         pre.json {
+            background: #0f172a;
+            color: #cfe3ff;
+            padding: 12px;
+            border-radius: 10px;
+            overflow: auto;
+            max-height: 430px;
+            font-size: 12px;
+            font-family: var(--mono);
+            margin: 0;
+            white-space: pre;
+         }
+         .row-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+         }
+      </style>
+   </head>
+   <body>
+      <header class="topbar">
+         <div>
+            <h1>ATER Śpiewnik — kreator piosenki</h1>
+            <p class="sub">Wypełnij formularz i pobierz plik JSON zgodny ze schematem importu (wersja 1).</p>
+         </div>
+         <div class="actions">
+            <button type="button" id="btnExample" class="btn ghost">Wczytaj przykład</button>
+            <button type="button" id="btnClear" class="btn ghost">Wyczyść</button>
+            <label class="btn ghost" style="display: inline-flex; align-items: center">
+               Wczytaj JSON
+               <input id="fileInput" type="file" accept=".json,application/json" hidden />
+            </label>
+         </div>
+      </header>
+
+      <main class="wrap">
+         <!-- ============ LEWY PANEL: FORMULARZ ============ -->
+         <section class="panel" id="form">
+            <h2>Dane piosenki</h2>
+            <div class="grid2">
+               <label class="field full"
+                  ><span>Tytuł *</span>
+                  <input id="f-title" type="text" maxlength="200" placeholder="np. Przykładowa piosenka" />
+               </label>
+               <label class="field"
+                  ><span>Autor słów</span>
+                  <input id="f-lyrics_author" type="text" maxlength="200" placeholder="np. Jan Kowalski" />
+               </label>
+               <label class="field"
+                  ><span>Kompozytor</span>
+                  <input id="f-composer" type="text" maxlength="200" placeholder="np. Anna Nowak" />
+               </label>
+               <label class="field"
+                  ><span>Wykonawca</span>
+                  <input id="f-performer" type="text" maxlength="200" placeholder="np. Zespół Przykładowy" />
+               </label>
+               <label class="field"
+                  ><span>Tonacja</span>
+                  <input id="f-key" type="text" maxlength="50" placeholder="np. G-dur" />
+               </label>
+               <label class="field"
+                  ><span>Kapodaster (0–24)</span>
+                  <input id="f-capo" type="number" min="0" max="24" step="1" placeholder="np. 2" />
+               </label>
+               <label class="field"
+                  ><span>Kategorie (oddziel przecinkami)</span>
+                  <input id="f-categories" type="text" placeholder="np. Ogniskowe, Turystyczne" />
+               </label>
+               <label class="field full"
+                  ><span>Link YouTube</span>
+                  <input id="f-youtube" type="text" placeholder="https://www.youtube.com/watch?v=..." />
+               </label>
+            </div>
+
+            <h2>Sekcje</h2>
+            <p class="hint">
+               Wers możesz zapisać jako <b>tekst z akordami w nawiasach</b> (<code>[G]Zażółć gęślą [D]jaźń</code>) albo
+               jako <b>obiekt</b> z listą akordów i pozycjami (indeks znaku od 0).
+            </p>
+            <div id="sections"></div>
+            <button type="button" id="btnAddSection" class="btn">+ Dodaj sekcję</button>
+         </section>
+
+         <!-- ============ PRAWY PANEL: WYNIK ============ -->
+         <section class="panel">
+            <h2>Podgląd</h2>
+            <div id="preview" class="preview"></div>
+
+            <h2>Walidacja</h2>
+            <div id="validation"></div>
+
+            <h2>JSON (do importu)</h2>
+            <div class="row-actions">
+               <button type="button" id="btnCopy" class="btn">Kopiuj do schowka</button>
+               <button type="button" id="btnDownload" class="btn primary">Pobierz .json</button>
+            </div>
+            <pre id="jsonOut" class="json"></pre>
+         </section>
+      </main>
+
+      <script>
+         /* =========================================================
+   Stałe / stan
+   ========================================================= */
+         const TYPES = [
+            ["verse", "Zwrotka"],
+            ["chorus", "Refren"],
+            ["bridge", "Bridge / Mostek"],
+            ["intro", "Intro"],
+            ["outro", "Outro"],
+            ["other", "Inne"],
+         ];
+         const TYPE_NAMES = Object.fromEntries(TYPES);
+
+         let state = {
+            title: "",
+            lyrics_author: "",
+            composer: "",
+            performer: "",
+            youtube: "",
+            key: "",
+            capo: "",
+            categories: "",
+            sections: [],
+         };
+
+         function newSection(type) {
+            return { type: type || "verse", label: "", lines: [{ kind: "string", text: "", chords: [] }] };
+         }
+
+         /* =========================================================
+   Pomocnicze
+   ========================================================= */
+         const $ = (id) => document.getElementById(id);
+
+         function makeBtn(text, title, cls, onClick) {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.className = "btn " + (cls || "");
+            b.textContent = text;
+            if (title) b.title = title;
+            b.addEventListener("click", onClick);
+            return b;
+         }
+
+         /** Liczba znaków Unicode (code pointów) — tak liczone są pozycje akordów. */
+         function cpLen(str) {
+            return [...str].length;
+         }
+
+         /** "[G]Zażółć [D]jaźń" -> {text:"Zażółć jaźń", chords:[{chord:"G",position:0},{chord:"D",position:7}]} */
+         function parseChordLine(raw) {
+            const chords = [];
+            let out = "";
+            const re = /\[([^\[\]]*)\]/g;
+            let last = 0,
+               m;
+            while ((m = re.exec(raw)) !== null) {
+               out += raw.slice(last, m.index);
+               const name = m[1].trim();
+               if (name) chords.push({ chord: name, position: cpLen(out) });
+               last = m.index + m[0].length;
+            }
+            out += raw.slice(last);
+            return { text: out, chords };
+         }
+
+         /* =========================================================
+   Budowanie obiektu piosenki
+   ========================================================= */
+         function buildSong() {
+            const s = {};
+            s.title = (state.title || "").trim();
+
+            const opt = (k) => {
+               const v = String(state[k] || "").trim();
+               if (v) s[k] = v;
+            };
+            opt("lyrics_author");
+            opt("composer");
+            opt("performer");
+            opt("youtube");
+            opt("key");
+
+            const capoRaw = String(state.capo ?? "").trim();
+            if (capoRaw !== "") {
+               const n = Number(capoRaw);
+               if (Number.isFinite(n)) s.capo = Math.trunc(n);
+            }
+
+            const cats = String(state.categories || "")
+               .split(",")
+               .map((x) => x.trim())
+               .filter(Boolean);
+            if (cats.length) s.categories = cats;
+
+            const sections = [];
+            state.sections.forEach((sec) => {
+               const lines = [];
+               (sec.lines || []).forEach((ln) => {
+                  if (ln.kind === "string") {
+                     if (!ln.text || ln.text.trim() === "") return;
+                     lines.push(ln.text);
+                  } else {
+                     const chords = (ln.chords || [])
+                        .filter((c) => c.chord && String(c.chord).trim() !== "")
+                        .map((c) => ({
+                           chord: String(c.chord).trim(),
+                           position: Math.max(0, Math.trunc(Number(c.position) || 0)),
+                        }))
+                        .sort((a, b) => a.position - b.position);
+                     if ((ln.text || "").trim() === "" && chords.length === 0) return;
+                     lines.push({ text: ln.text || "", chords });
+                  }
+               });
+               if (lines.length === 0) return;
+
+               const o = { type: sec.type || "other" };
+               if (sec.label && sec.label.trim()) o.label = sec.label.trim();
+               o.lines = lines;
+               sections.push(o);
+            });
+            s.sections = sections;
+
+            return s;
+         }
+
+         /* =========================================================
+   Walidacja (odwzorowanie song.schema.json)
+   ========================================================= */
+         const CHORD_RE = /^[A-Ga-g][A-Za-z0-9#/+\-()]{0,11}$/;
+         const isStr = (v) => typeof v === "string";
+         const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+
+         function validateSong(song) {
+            const e = [];
+            const add = (p, m) => e.push([p, m]);
+
+            if (!isObj(song)) return [["", "Piosenka musi być obiektem."]];
+
+            /* --- tytuł --- */
+            if (!isStr(song.title) || song.title.trim().length === 0) add("title", "Pole wymagane (min. 1 znak).");
+            else if (song.title.length > 200) add("title", "Maks. 200 znaków.");
+
+            /* --- teksty opcjonalne --- */
+            ["lyrics_author", "composer", "performer"].forEach((k) => {
+               if (song[k] === undefined) return;
+               if (!isStr(song[k])) add(k, "Musi być tekstem.");
+               else if (song[k].length > 200) add(k, "Maks. 200 znaków.");
+            });
+
+            if (song.youtube !== undefined) {
+               if (!isStr(song.youtube)) add("youtube", "Musi być tekstem.");
+               else {
+                  try {
+                     new URL(song.youtube);
+                  } catch {
+                     add("youtube", "Nieprawidłowy adres URL.");
+                  }
+               }
+            }
+
+            if (song.key !== undefined) {
+               if (!isStr(song.key)) add("key", "Musi być tekstem.");
+               else if (song.key.length > 50) add("key", "Maks. 50 znaków.");
+            }
+
+            if (song.capo !== undefined && song.capo !== null) {
+               if (!Number.isInteger(song.capo) || song.capo < 0 || song.capo > 24)
+                  add("capo", "Liczba całkowita z zakresu 0–24.");
+            }
+
+            if (song.categories !== undefined) {
+               if (!Array.isArray(song.categories)) add("categories", "Musi być tablicą.");
+               else
+                  song.categories.forEach((c, i) => {
+                     if (!isStr(c) || c.length < 1 || c.length > 100)
+                        add(`categories[${i}]`, "Kategoria: 1–100 znaków.");
+                  });
+            }
+
+            /* --- sekcje --- */
+            if (!Array.isArray(song.sections)) {
+               add("sections", "Wymagana tablica sekcji.");
+               return e;
+            }
+            if (song.sections.length > 200) add("sections", "Maks. 200 sekcji.");
+
+            song.sections.forEach((sec, si) => {
+               const p = `sections[${si}]`;
+               if (!isObj(sec)) {
+                  add(p, "Sekcja musi być obiektem.");
+                  return;
+               }
+
+               if (sec.type !== undefined && !TYPES.some((t) => t[0] === sec.type))
+                  add(`${p}.type`, "Niedozwolony typ sekcji.");
+               if (sec.label !== undefined && (!isStr(sec.label) || sec.label.length > 100))
+                  add(`${p}.label`, "Etykieta: maks. 100 znaków.");
+
+               if (sec.lines === undefined) {
+                  add(`${p}.lines`, "Pole wymagane.");
+               } else if (isStr(sec.lines)) {
+                  /* wariant: jeden tekst z wersami w osobnych liniach — OK */
+               } else if (Array.isArray(sec.lines)) {
+                  if (sec.lines.length > 500) add(`${p}.lines`, "Maks. 500 wersów.");
+                  sec.lines.forEach((ln, li) => {
+                     const lp = `${p}.lines[${li}]`;
+                     if (isStr(ln)) {
+                        if (ln.length > 700) add(lp, "Wers: maks. 700 znaków.");
+                     } else if (isObj(ln)) {
+                        if (!isStr(ln.text)) add(`${lp}.text`, "Pole wymagane.");
+                        else if (ln.text.length > 500) add(`${lp}.text`, "Maks. 500 znaków.");
+                        if (ln.chords !== undefined) {
+                           if (!Array.isArray(ln.chords)) add(`${lp}.chords`, "Musi być tablicą.");
+                           else {
+                              if (ln.chords.length > 40) add(`${lp}.chords`, "Maks. 40 akordów.");
+                              ln.chords.forEach((c, ci) => {
+                                 const cp = `${lp}.chords[${ci}]`;
+                                 if (!isObj(c)) {
+                                    add(cp, "Akord musi być obiektem.");
+                                    return;
+                                 }
+                                 if (!isStr(c.chord) || !CHORD_RE.test(c.chord))
+                                    add(`${cp}.chord`, `Nieprawidłowa nazwa akordu: "${c.chord}".`);
+                                 if (!Number.isInteger(c.position) || c.position < 0)
+                                    add(`${cp}.position`, "Pozycja: liczba całkowita ≥ 0.");
+                              });
+                           }
+                        }
+                     } else {
+                        add(lp, "Wers musi być tekstem lub obiektem {text, chords}.");
+                     }
+                  });
+               } else {
+                  add(`${p}.lines`, "Musi być tablicą wersów albo tekstem.");
+               }
+            });
+
+            return e;
+         }
+
+         /* =========================================================
+   Renderowanie formularza sekcji
+   ========================================================= */
+         function renderSections() {
+            const wrap = $("sections");
+            wrap.innerHTML = "";
+            if (state.sections.length === 0) {
+               const p = document.createElement("p");
+               p.className = "hint";
+               p.textContent = "Brak sekcji — dodaj pierwszą.";
+               wrap.append(p);
+            }
+            state.sections.forEach((sec, i) => wrap.append(sectionEl(sec, i)));
+         }
+
+         function sectionEl(sec, index) {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            /* nagłówek karty */
+            const head = document.createElement("div");
+            head.className = "card-head";
+
+            const typeSel = document.createElement("select");
+            TYPES.forEach(([v, l]) => typeSel.append(new Option(l, v)));
+            typeSel.value = sec.type;
+            typeSel.addEventListener("change", () => {
+               sec.type = typeSel.value;
+               refresh();
+            });
+
+            const labelInp = document.createElement("input");
+            labelInp.type = "text";
+            labelInp.maxLength = 100;
+            labelInp.placeholder = "Etykieta, np. Zwrotka 1";
+            labelInp.value = sec.label || "";
+            labelInp.addEventListener("input", () => {
+               sec.label = labelInp.value;
+            });
+
+            const tools = document.createElement("div");
+            tools.className = "card-tools";
+            tools.append(
+               makeBtn("↑", "Przesuń w górę", "icon", () => moveSection(index, -1)),
+               makeBtn("↓", "Przesuń w dół", "icon", () => moveSection(index, 1)),
+               makeBtn("✕", "Usuń sekcję", "icon danger", () => {
+                  state.sections.splice(index, 1);
+                  renderSections();
+                  refresh();
+               })
+            );
+
+            head.append(typeSel, labelInp, tools);
+
+            /* wersy */
+            const linesBox = document.createElement("div");
+            linesBox.className = "lines";
+            (sec.lines || []).forEach((line, li) => linesBox.append(lineEl(line, sec, li)));
+
+            const addLine = makeBtn("+ Wers", "", "small", () => {
+               const prevKind = sec.lines.length ? sec.lines[sec.lines.length - 1].kind : "string";
+               sec.lines.push({ kind: prevKind, text: "", chords: [] });
+               renderSections();
+               refresh();
+            });
+
+            card.append(head, linesBox, addLine);
+            return card;
+         }
+
+         function lineEl(line, sec, li) {
+            const row = document.createElement("div");
+            row.className = "line";
+
+            const kindSel = document.createElement("select");
+            kindSel.append(new Option("Tekst z [akordami]", "string"), new Option("Obiekt {text, chords}", "object"));
+            kindSel.value = line.kind;
+            kindSel.addEventListener("change", () => {
+               line.kind = kindSel.value;
+               renderSections();
+               refresh();
+            });
+
+            const body = document.createElement("div");
+            body.className = "line-body";
+
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.className = "inp-line";
+            inp.value = line.text || "";
+            inp.addEventListener("input", () => {
+               line.text = inp.value;
+            });
+
+            if (line.kind === "string") {
+               inp.maxLength = 700;
+               inp.placeholder = "[G]Zażółć gęślą [D]jaźń przy ognisku";
+               body.append(inp);
+            } else {
+               inp.maxLength = 500;
+               inp.placeholder = "Tekst wersu (bez akordów)";
+               body.append(inp, chordEditor(line));
+            }
+
+            const tools = document.createElement("div");
+            tools.className = "line-tools";
+            tools.append(
+               makeBtn("↑", "W górę", "icon", () => moveLine(sec, li, -1)),
+               makeBtn("↓", "W dół", "icon", () => moveLine(sec, li, 1)),
+               makeBtn("✕", "Usuń wers", "icon danger", () => {
+                  sec.lines.splice(li, 1);
+                  renderSections();
+                  refresh();
+               })
+            );
+
+            row.append(kindSel, body, tools);
+            return row;
+         }
+
+         function chordEditor(line) {
+            const box = document.createElement("div");
+            box.className = "chords";
+            const list = document.createElement("div");
+
+            const rerender = () => {
+               list.innerHTML = "";
+               if (!line.chords.length) {
+                  const h = document.createElement("div");
+                  h.className = "hint";
+                  h.style.margin = "0 0 6px";
+                  h.textContent = "Brak akordów — dodaj pary „akord + pozycja”.";
+                  list.append(h);
+               }
+               line.chords.forEach((c, ci) => {
+                  const r = document.createElement("div");
+                  r.className = "chord-row";
+
+                  const chInp = document.createElement("input");
+                  chInp.type = "text";
+                  chInp.className = "inp-chord";
+                  chInp.maxLength = 12;
+                  chInp.placeholder = "G";
+                  chInp.value = c.chord || "";
+                  chInp.addEventListener("input", () => {
+                     c.chord = chInp.value;
+                  });
+
+                  const posInp = document.createElement("input");
+                  posInp.type = "number";
+                  posInp.min = "0";
+                  posInp.className = "inp-pos";
+                  posInp.value = Number.isFinite(c.position) ? c.position : 0;
+                  posInp.addEventListener("input", () => {
+                     c.position = Math.max(0, Math.trunc(Number(posInp.value) || 0));
+                  });
+
+                  r.append(
+                     chInp,
+                     posInp,
+                     makeBtn("✕", "Usuń akord", "icon danger", () => {
+                        line.chords.splice(ci, 1);
+                        rerender();
+                        refresh();
+                     })
+                  );
+                  list.append(r);
+               });
+            };
+            rerender();
+
+            const add = makeBtn("+ akord", "", "small", () => {
+               line.chords.push({ chord: "", position: cpLen(line.text || "") });
+               rerender();
+               refresh();
+            });
+
+            box.append(list, add);
+            return box;
+         }
+
+         function moveSection(i, d) {
+            const j = i + d;
+            if (j < 0 || j >= state.sections.length) return;
+            [state.sections[i], state.sections[j]] = [state.sections[j], state.sections[i]];
+            renderSections();
+            refresh();
+         }
+
+         function moveLine(sec, i, d) {
+            const j = i + d;
+            if (j < 0 || j >= sec.lines.length) return;
+            [sec.lines[i], sec.lines[j]] = [sec.lines[j], sec.lines[i]];
+            renderSections();
+            refresh();
+         }
+
+         /* =========================================================
+   Podgląd
+   ========================================================= */
+         function renderPreview(song) {
+            const box = $("preview");
+            box.innerHTML = "";
+
+            const title = document.createElement("div");
+            title.className = "prev-title";
+            title.textContent = song.title || "(bez tytułu)";
+            box.append(title);
+
+            const bits = [];
+            if (song.lyrics_author) bits.push("sł. " + song.lyrics_author);
+            if (song.composer) bits.push("muz. " + song.composer);
+            if (song.performer) bits.push("wyk. " + song.performer);
+            if (song.key) bits.push("tonacja: " + song.key);
+            if (song.capo !== undefined) bits.push("capo: " + song.capo);
+            if (bits.length) {
+               const m = document.createElement("div");
+               m.className = "prev-meta";
+               m.textContent = bits.join(" · ");
+               box.append(m);
+            }
+            if (song.categories && song.categories.length) {
+               const c = document.createElement("div");
+               c.className = "prev-meta";
+               c.textContent = "kategorie: " + song.categories.join(", ");
+               box.append(c);
+            }
+
+            if (!song.sections.length) {
+               const h = document.createElement("div");
+               h.className = "hint";
+               h.textContent = "Brak wersów do wyświetlenia.";
+               box.append(h);
+               return;
+            }
+
+            song.sections.forEach((sec) => {
+               const s = document.createElement("div");
+               s.className = "psection";
+
+               const h = document.createElement("div");
+               h.className = "psec-head";
+               h.textContent = sec.label || TYPE_NAMES[sec.type] || "Sekcja";
+               s.append(h);
+
+               sec.lines.forEach((ln) => {
+                  const data = typeof ln === "string" ? parseChordLine(ln) : { text: ln.text, chords: ln.chords || [] };
+                  s.append(previewLine(data.text, data.chords));
+               });
+
+               box.append(s);
+            });
+         }
+
+         function previewLine(text, chords) {
+            const wrap = document.createElement("div");
+            wrap.className = "pline";
+
+            const chars = [...(text || "")];
+            let needed = chars.length;
+            chords.forEach((c) => {
+               needed = Math.max(needed, c.position + c.chord.length);
+            });
+
+            if (chords.length) {
+               const arr = Array(needed).fill(" ");
+               chords.forEach((c) => {
+                  const p = Math.min(c.position, needed);
+                  for (let i = 0; i < c.chord.length; i++) {
+                     const idx = p + i;
+                     if (idx < arr.length) arr[idx] = c.chord[i];
+                     else arr.push(c.chord[i]);
+                  }
+               });
+               const cr = document.createElement("div");
+               cr.className = "pchords";
+               cr.textContent = arr.join("").replace(/\s+$/, "");
+               wrap.append(cr);
+            }
+
+            const tr = document.createElement("div");
+            tr.className = "ptext";
+            tr.textContent = text || "\u00a0";
+            wrap.append(tr);
+
+            return wrap;
+         }
+
+         /* =========================================================
+   Walidacja: wyświetlanie
+   ========================================================= */
+         function renderValidation(errs) {
+            const box = $("validation");
+            box.innerHTML = "";
+            if (errs.length === 0) {
+               const d = document.createElement("div");
+               d.className = "ok";
+               d.textContent = "✓ Brak błędów — wygenerowany JSON jest zgodny ze schematem.";
+               box.append(d);
+               return;
+            }
+            const ul = document.createElement("ul");
+            ul.className = "errs";
+            errs.slice(0, 100).forEach(([path, msg]) => {
+               const li = document.createElement("li");
+               li.textContent = path ? `${path}: ${msg}` : msg;
+               ul.append(li);
+            });
+            box.append(ul);
+         }
+
+         /* =========================================================
+   Główna aktualizacja
+   ========================================================= */
+         function refresh() {
+            const song = buildSong();
+            renderValidation(validateSong(song));
+            renderPreview(song);
+            $("jsonOut").textContent = JSON.stringify({ schema_version: 1, songs: [song] }, null, 2);
+         }
+
+         /* =========================================================
+   Wczytywanie danych do formularza
+   ========================================================= */
+         const META_KEYS = ["title", "lyrics_author", "composer", "performer", "youtube", "key", "capo", "categories"];
+
+         function syncMetaInputs() {
+            META_KEYS.forEach((k) => {
+               const inp = $("f-" + k);
+               if (inp) inp.value = state[k] ?? "";
+            });
+         }
+
+         function loadSong(song) {
+            META_KEYS.forEach((k) => {
+               state[k] = "";
+            });
+
+            state.title = song.title || "";
+            state.lyrics_author = song.lyrics_author || "";
+            state.composer = song.composer || "";
+            state.performer = song.performer || "";
+            state.youtube = song.youtube || "";
+            state.key = song.key || "";
+            state.capo = song.capo === null || song.capo === undefined ? "" : String(song.capo);
+            state.categories = Array.isArray(song.categories) ? song.categories.join(", ") : "";
+
+            const rawSections = Array.isArray(song.sections) ? song.sections : [];
+            state.sections = rawSections.map((sec) => {
+               let rawLines = [];
+               if (typeof sec.lines === "string") rawLines = sec.lines.split("\n");
+               else if (Array.isArray(sec.lines)) rawLines = sec.lines;
+
+               return {
+                  type: sec.type || "other",
+                  label: sec.label || "",
+                  lines: rawLines.map((ln) => {
+                     if (typeof ln === "string") return { kind: "string", text: ln, chords: [] };
+                     return {
+                        kind: "object",
+                        text: ln.text || "",
+                        chords: (ln.chords || []).map((c) => ({
+                           chord: c.chord || "",
+                           position: Number.isFinite(c.position) ? c.position : 0,
+                        })),
+                     };
+                  }),
+               };
+            });
+
+            if (state.sections.length === 0) state.sections.push(newSection());
+
+            syncMetaInputs();
+            renderSections();
+            refresh();
+         }
+
+         /* =========================================================
+   Start / zdarzenia
+   ========================================================= */
+         const EXAMPLE = {
+            title: "Przykładowa piosenka",
+            lyrics_author: "Jan Kowalski",
+            composer: "Anna Nowak",
+            performer: "Zespół Przykładowy",
+            youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            key: "G-dur",
+            capo: 2,
+            categories: ["Ogniskowe"],
+            sections: [
+               {
+                  type: "verse",
+                  label: "Zwrotka 1",
+                  lines: [
+                     "[G]Zażółć gęślą [D]jaźń przy ognisku",
+                     {
+                        text: "Gdy gwiazdy świecą nad nami",
+                        chords: [
+                           { chord: "C", position: 0 },
+                           { chord: "G", position: 15 },
+                        ],
+                     },
+                     "Wers bez akordów",
+                  ],
+               },
+               {
+                  type: "chorus",
+                  label: "Refren",
+                  lines: "[C]Śpiewajmy razem [G]głośno\n[D]Niech niesie się [G]pieśń",
+               },
+            ],
+         };
+
+         /* --- pola metadanych --- */
+         META_KEYS.forEach((k) => {
+            const inp = $("f-" + k);
+            inp.addEventListener("input", () => {
+               state[k] = inp.value;
+            });
+         });
+
+         /* --- przyciski górne --- */
+         $("btnExample").addEventListener("click", () => {
+            loadSong(JSON.parse(JSON.stringify(EXAMPLE)));
+         });
+
+         $("btnClear").addEventListener("click", () => {
+            if (!confirm("Wyczyścić cały formularz?")) return;
+            META_KEYS.forEach((k) => (state[k] = ""));
+            state.sections = [newSection()];
+            syncMetaInputs();
+            renderSections();
+            refresh();
+         });
+
+         $("fileInput").addEventListener("change", async (ev) => {
+            const file = ev.target.files[0];
+            if (!file) return;
+            try {
+               const data = JSON.parse(await file.text());
+               let song = null;
+               if (Array.isArray(data)) song = data[0];
+               else if (data && Array.isArray(data.songs)) song = data.songs[0];
+               else if (data && typeof data === "object") song = data;
+               if (!song) throw new Error("Nie znaleziono piosenki w pliku.");
+               loadSong(song);
+            } catch (err) {
+               alert("Nie udało się wczytać pliku: " + err.message);
+            }
+            ev.target.value = "";
+         });
+
+         /* --- przycisk dodania sekcji --- */
+         $("btnAddSection").addEventListener("click", () => {
+            state.sections.push(newSection());
+            renderSections();
+            refresh();
+         });
+
+         /* --- kopiowanie / pobieranie --- */
+         $("btnCopy").addEventListener("click", async () => {
+            const txt = $("jsonOut").textContent;
+            try {
+               await navigator.clipboard.writeText(txt);
+               const b = $("btnCopy");
+               const old = b.textContent;
+               b.textContent = "✓ Skopiowano";
+               setTimeout(() => (b.textContent = old), 1400);
+            } catch {
+               alert("Nie udało się skopiować — zaznacz JSON i skopiuj ręcznie.");
+            }
+         });
+
+         $("btnDownload").addEventListener("click", () => {
+            const song = buildSong();
+            const blob = new Blob([JSON.stringify({ schema_version: 1, songs: [song] }, null, 2)], {
+               type: "application/json",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            const name =
+               (song.title || "piosenka")
+                  .toLowerCase()
+                  .replace(
+                     /[ąćęłńóśźż]/g,
+                     (ch) => ({ ą: "a", ć: "c", ę: "e", ł: "l", ń: "n", ó: "o", ś: "s", ź: "z", ż: "z" })[ch]
+                  )
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/^-+|-+$/g, "") || "piosenka";
+            a.href = url;
+            a.download = name + ".json";
+            a.click();
+            URL.revokeObjectURL(url);
+         });
+
+         /* --- odświeżanie przy każdej zmianie w formularzu --- */
+         $("form").addEventListener("input", refresh);
+         $("form").addEventListener("change", refresh);
+
+         /* --- start --- */
+         state.sections = [newSection()];
+         renderSections();
+         syncMetaInputs();
+         refresh();
+      </script>
+   </body>
+</html>
